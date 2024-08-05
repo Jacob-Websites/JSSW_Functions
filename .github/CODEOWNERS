@@ -1,0 +1,5 @@
+# Default reviewers/code owners for all code changes
+* @prabhutejad @jitendar1309 @tarunteja87
+
+# Reviewer by email for HTML files
+*.html prabhuteja.iot@gmail.com jitendar.malla9@gmail.com taruntejaofficial@gmail.com
