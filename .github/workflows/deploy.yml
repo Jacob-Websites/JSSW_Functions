@@ -25,16 +25,11 @@ jobs:
         run: npm install --prefix functions
 
       - name: Build Firebase Functions
-        run: npm run build --prefix functions  # Adjust build script as per your project setup
-
-      - name: Archive Firebase Functions
-        uses: actions/upload-artifact@v2
-        with:
-          name: functions-artifact
-          path: functions  # Path to the Firebase functions directory or build output directory
+        run: npm run build --prefix functions  # Run the build script defined in package.json
 
       - name: Deploy Firebase Functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: |
+          cd functions
           firebase deploy --only functions --token "$FIREBASE_TOKEN"
