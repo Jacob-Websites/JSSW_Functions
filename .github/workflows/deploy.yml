@@ -28,4 +28,4 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: |
           cd functions
-          $(npm bin)/firebase deploy --only functions --token "$FIREBASE_TOKEN"
+           npm run deploy
