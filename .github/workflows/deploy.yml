@@ -3,7 +3,7 @@ name: Deploy Firebase Functions
 on:
   push:
     branches:
-      - main
+      - main  # Change this to your main branch
 
 jobs:
   build:
@@ -16,16 +16,25 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '14'  # Adjust Node.js version as needed
 
-      - name: Install dependencies and Firebase CLI
-        run: |
-          npm install -g firebase-tools
-          npm install --prefix functions
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
 
-      - name: Deploy to Firebase
+      - name: Install dependencies
+        run: npm install --prefix functions
+
+      - name: Build Firebase Functions
+        run: npm run build --prefix functions  # Adjust build script as per your project setup
+
+      - name: Archive Firebase Functions
+        uses: actions/upload-artifact@v2
+        with:
+          name: functions-artifact
+          path: functions  # Path to the Firebase functions directory or build output directory
+
+      - name: Deploy Firebase Functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: |
-          cd functions
-           npm run deploy
+          firebase deploy --only functions --token "$FIREBASE_TOKEN"
