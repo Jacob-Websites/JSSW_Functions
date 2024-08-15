@@ -3,7 +3,7 @@ const app=express();
 const mysql=require('mysql');
 const bodyParser=require('body-parser');
 app.use(bodyParser.json());
-const port=5000;
+const port=8989;
 
 
 

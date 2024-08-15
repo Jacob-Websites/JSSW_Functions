@@ -28,7 +28,11 @@ jobs:
         run: npm run build --prefix functions
 
       - name: Decode Service Account Key
-        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode > /tmp/service-account-key.json
+        run: |
+          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode > ${{ github.workspace }}/service-account-key.json
+        shell: bash
 
       - name: Deploy Firebase Functions
-        run: firebase deploy --only functions --project=dyanamicwebsites --service-account=/tmp/service-account-key.json
+        run: firebase deploy --only functions --project=dyanamicwebsites --token=$(firebase login:ci --service-account=${{ github.workspace }}/service-account-key.json)
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
