@@ -29,7 +29,7 @@ jobs:
 
       - name: Deploy Firebase Functions
         env:
-          FIREBASE_TOKEN: ${{ secrets.GOOGLE_FIREBASE_TOKEN }}
+          FIREBASE_TOKEN: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS}}
         run: |
           cd functions
-          firebase deploy --only functions --token "$GOOGLE_FIREBASE_TOKEN"
+          firebase deploy --only functions --token "$GOOGLE_APPLICATION_CREDENTIALS"
